@@ -1,0 +1,9 @@
+.a {
+    color: red;
+}
+.b {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    border: 1px solid blue;
+}
