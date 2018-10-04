@@ -1,3 +1,4 @@
+'use strict'
 const path = require('path');
 // 清理打包输出时的文件夹 /dist
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -6,17 +7,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     // 入口
-    entry: {
-        app: './src/main.js'
-    },
+    entry: ["@babel/polyfill", './src/main.js'],
     // 插件
     plugins: [
         new CleanWebpackPlugin(['dist']),
-        new HtmlWebpackPlugin({})
+        new HtmlWebpackPlugin({
+            template: './index.html'
+        })
     ],
     // 输出
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].js',
         // __dirname 当前js的绝对路径
         // ../dist -> 让输出指向绝对路径的上一级的dist文件夹
         path: path.resolve(__dirname, '../dist')
@@ -42,12 +43,15 @@ module.exports = {
                 }
             },
             {
-                test: /\.js$/,
+                test: /\.m?js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-env'],
+                        plugins: [
+                            '@babel/plugin-syntax-dynamic-import'
+                        ]
                     }
                 }
             }
@@ -56,7 +60,7 @@ module.exports = {
     optimization: {
         splitChunks: {
             // 当有异步加载的时候chunks的值应当为async
-            chunks: 'all'
+            chunks: 'async'
         }
     }
 };
