@@ -51,7 +51,8 @@ module.exports = {
                         presets: ['@babel/preset-env'],
                         plugins: [
                             // 支持异步（懒）加载
-                            '@babel/plugin-syntax-dynamic-import'
+                            '@babel/plugin-syntax-dynamic-import',
+                            '@babel/plugin-proposal-class-properties'
                         ]
                     }
                 }
