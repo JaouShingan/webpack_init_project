@@ -15,6 +15,9 @@ module.exports = {
             template: './index.html'
         })
     ],
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js']
+    },
     // 输出
     output: {
         filename: '[name].js',
@@ -56,6 +59,11 @@ module.exports = {
                         ]
                     }
                 }
+            },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
             }
         ]
     },
